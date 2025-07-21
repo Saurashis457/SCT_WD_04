@@ -99,13 +99,17 @@ const Index = () => {
         {/* Header */}
         <div className="text-center mb-8 animate-fade-in">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
-              <CheckSquare className="w-8 h-8 text-white" />
+            <div className="p-3 glass-card rounded-2xl animate-bounce-in">
+              <CheckSquare className="w-8 h-8 text-white drop-shadow-lg" />
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white drop-shadow-lg">
               Task Manager
             </h1>
-            <Sparkles className="w-6 h-6 text-yellow-300 animate-pulse" />
+            <div className="flex gap-1">
+              <Sparkles className="w-6 h-6 text-yellow-300 animate-pulse" />
+              <Sparkles className="w-4 h-4 text-pink-300 animate-pulse delay-150" />
+              <Sparkles className="w-5 h-5 text-blue-300 animate-pulse delay-300" />
+            </div>
           </div>
           
           <p className="text-white/80 text-lg max-w-md mx-auto">
@@ -122,9 +126,9 @@ const Index = () => {
                 <div className="text-sm text-muted-foreground mb-2">
                   Tasks Completed
                 </div>
-                <div className="w-full bg-muted/30 rounded-full h-2">
+                <div className="w-full bg-muted/30 rounded-full h-3 overflow-hidden">
                   <div 
-                    className="bg-gradient-to-r from-primary to-primary-light h-2 rounded-full transition-all duration-500 ease-out"
+                    className="progress-rainbow h-3 rounded-full transition-all duration-500 ease-out"
                     style={{ width: `${completedPercentage}%` }}
                   />
                 </div>

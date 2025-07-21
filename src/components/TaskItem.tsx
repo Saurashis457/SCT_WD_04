@@ -45,9 +45,9 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }: TaskItemProps) =>
 
   return (
     <Card 
-      className={`task-item p-4 rounded-xl border-0 ${
+      className={`task-item p-4 rounded-xl border-0 group ${
         task.completed ? 'task-completed' : ''
-      } ${isOverdue ? 'border-l-4 border-l-orange-400' : ''} animate-slide-up`}
+      } ${isOverdue ? 'task-overdue border-l-4 border-l-orange-400' : ''} animate-slide-up`}
     >
       <div className="flex items-center gap-3">
         {/* Checkbox */}
@@ -57,8 +57,8 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }: TaskItemProps) =>
           onClick={() => onToggle(task.id)}
           className={`min-w-8 h-8 rounded-full p-0 border-2 transition-all duration-300 ${
             task.completed
-              ? 'bg-green-500 border-green-500 text-white animate-checkmark'
-              : 'border-muted-foreground/30 hover:border-primary'
+              ? 'bg-gradient-to-r from-green-400 to-emerald-500 border-green-400 text-white animate-checkmark shadow-lg'
+              : 'border-muted-foreground/30 hover:border-purple-400 hover:bg-purple-50 hover:shadow-md'
           }`}
         >
           {task.completed && <Check className="w-4 h-4" />}
@@ -91,16 +91,16 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }: TaskItemProps) =>
                   {task.dueDate && (
                     <div className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
-                      <span className={isOverdue ? 'text-orange-500 font-medium' : ''}>
-                        {format(task.dueDate, 'MMM dd, yyyy')}
-                      </span>
+                       <span className={isOverdue ? 'text-orange-500 font-medium bg-orange-100 px-2 py-0.5 rounded-full' : 'text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full'}>
+                         {format(task.dueDate, 'MMM dd, yyyy')}
+                       </span>
                     </div>
                   )}
                   {task.dueTime && (
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      <span>{task.dueTime}</span>
-                    </div>
+                     <div className="flex items-center gap-1">
+                       <Clock className="w-3 h-3 text-purple-500" />
+                       <span className="text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">{task.dueTime}</span>
+                     </div>
                   )}
                 </div>
               )}
@@ -114,7 +114,7 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }: TaskItemProps) =>
             variant="ghost"
             size="sm"
             onClick={() => setIsEditing(true)}
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-primary"
+            className="h-8 w-8 p-0 text-muted-foreground hover:text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
           >
             <Edit className="w-4 h-4" />
           </Button>
@@ -122,7 +122,7 @@ export const TaskItem = ({ task, onToggle, onEdit, onDelete }: TaskItemProps) =>
             variant="ghost"
             size="sm"
             onClick={() => onDelete(task.id)}
-            className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive"
+            className="h-8 w-8 p-0 text-muted-foreground hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
           >
             <Trash2 className="w-4 h-4" />
           </Button>

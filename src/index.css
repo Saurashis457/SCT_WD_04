@@ -11,31 +11,48 @@ All colors MUST be HSL.
     --background: 240 10% 98%;
     --foreground: 240 10% 15%;
     
-    /* Modern Task App Color Palette */
-    --primary: 242 47% 58%;
-    --primary-light: 242 47% 68%;
-    --primary-dark: 242 47% 48%;
+    /* Vibrant Color Palette */
+    --primary: 270 95% 75%;
+    --primary-light: 280 100% 85%;
+    --primary-dark: 260 90% 65%;
     --primary-foreground: 0 0% 100%;
     
+    --secondary: 200 95% 70%;
+    --accent-purple: 290 85% 75%;
+    --accent-pink: 340 85% 75%;
+    --accent-orange: 30 95% 70%;
+    --accent-green: 150 85% 65%;
+    --accent-blue: 220 95% 70%;
+    
     --task-bg: 0 0% 100%;
-    --task-completed: 142 71% 45%;
-    --task-overdue: 25 95% 53%;
-    --task-pending: 48 96% 53%;
+    --task-completed: 150 85% 65%;
+    --task-overdue: 15 95% 70%;
+    --task-pending: 45 95% 70%;
+    --task-priority-high: 350 85% 70%;
+    --task-priority-medium: 30 95% 70%;
+    --task-priority-low: 200 85% 70%;
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(242 47% 58%), hsl(242 47% 68%));
-    --gradient-hero: linear-gradient(135deg, hsl(242 47% 58%) 0%, hsl(260 67% 72%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.9), hsl(240 10% 98% / 0.5));
+    /* Vibrant Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(270 95% 75%), hsl(280 100% 85%));
+    --gradient-hero: linear-gradient(135deg, hsl(270 95% 75%) 0%, hsl(340 85% 75%) 50%, hsl(200 95% 70%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.95), hsl(270 95% 75% / 0.1));
+    --gradient-task-new: linear-gradient(135deg, hsl(200 95% 70% / 0.1), hsl(280 100% 85% / 0.1));
+    --gradient-task-completed: linear-gradient(135deg, hsl(150 85% 65% / 0.15), hsl(120 75% 55% / 0.1));
+    --gradient-task-overdue: linear-gradient(135deg, hsl(15 95% 70% / 0.15), hsl(25 85% 65% / 0.1));
+    --gradient-rainbow: linear-gradient(90deg, hsl(0 85% 70%), hsl(30 95% 70%), hsl(60 95% 70%), hsl(120 85% 65%), hsl(200 95% 70%), hsl(270 95% 75%), hsl(340 85% 75%));
     
-    /* Shadows & Effects */
-    --shadow-soft: 0 4px 20px hsl(240 10% 15% / 0.08);
-    --shadow-card: 0 8px 32px hsl(240 10% 15% / 0.12);
-    --shadow-task: 0 2px 8px hsl(240 10% 15% / 0.06);
-    --shadow-hover: 0 8px 40px hsl(242 47% 58% / 0.15);
+    /* Colorful Shadows & Effects */
+    --shadow-soft: 0 4px 20px hsl(270 95% 75% / 0.12);
+    --shadow-card: 0 8px 32px hsl(270 95% 75% / 0.18);
+    --shadow-task: 0 2px 8px hsl(270 95% 75% / 0.08);
+    --shadow-hover: 0 12px 40px hsl(270 95% 75% / 0.25);
+    --shadow-colorful: 0 8px 32px hsl(270 95% 75% / 0.2), 0 0 0 1px hsl(280 100% 85% / 0.1);
+    --shadow-rainbow: 0 8px 32px hsl(270 95% 75% / 0.15), 0 0 20px hsl(340 85% 75% / 0.1);
     
     /* Glass Effects */
-    --glass-bg: hsl(0 0% 100% / 0.25);
-    --glass-border: hsl(0 0% 100% / 0.18);
+    --glass-bg: hsl(270 95% 75% / 0.1);
+    --glass-border: hsl(280 100% 85% / 0.2);
+    --glass-colorful: hsl(270 95% 75% / 0.05);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -129,34 +146,52 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
     background: var(--gradient-hero);
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
     min-height: 100vh;
   }
 }
 
 @layer components {
-  /* Glass Effect Cards */
+  /* Colorful Glass Effect Cards */
   .glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
+    background: var(--glass-colorful);
+    backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-colorful);
   }
   
-  /* Task Item Styles */
+  /* Vibrant Task Item Styles */
   .task-item {
     @apply transition-all duration-300 hover:scale-[1.02];
-    background: var(--gradient-card);
+    background: var(--gradient-task-new);
     box-shadow: var(--shadow-task);
+    border: 1px solid hsl(280 100% 85% / 0.2);
   }
   
   .task-item:hover {
-    box-shadow: var(--shadow-hover);
+    box-shadow: var(--shadow-rainbow);
+    transform: translateY(-2px) scale(1.02);
   }
   
-  /* Completed Task Animation */
+  /* Colorful Task States */
   .task-completed {
-    @apply opacity-75;
-    background: linear-gradient(145deg, hsl(142 71% 45% / 0.1), hsl(142 71% 45% / 0.05));
+    @apply opacity-80;
+    background: var(--gradient-task-completed);
+    border-color: hsl(150 85% 65% / 0.3);
+  }
+  
+  .task-overdue {
+    background: var(--gradient-task-overdue);
+    border-color: hsl(15 95% 70% / 0.4);
+    animation: pulse-warning 2s ease-in-out infinite;
+  }
+  
+  /* Colorful Progress Bar */
+  .progress-rainbow {
+    background: var(--gradient-rainbow);
+    background-size: 200% 100%;
+    animation: rainbow-flow 3s linear infinite;
   }
   
   /* Custom Scrollbar */
@@ -253,5 +288,32 @@ All colors MUST be HSL.
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes rainbow-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes pulse-warning {
+  0%, 100% {
+    box-shadow: var(--shadow-task);
+  }
+  50% {
+    box-shadow: 0 4px 20px hsl(15 95% 70% / 0.3);
   }
 }

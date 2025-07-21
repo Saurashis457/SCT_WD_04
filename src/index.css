@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Modern Task Management Design System - All colors, gradients, fonts, etc defined here. 
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 240 10% 98%;
+    --foreground: 240 10% 15%;
+    
+    /* Modern Task App Color Palette */
+    --primary: 242 47% 58%;
+    --primary-light: 242 47% 68%;
+    --primary-dark: 242 47% 48%;
+    --primary-foreground: 0 0% 100%;
+    
+    --task-bg: 0 0% 100%;
+    --task-completed: 142 71% 45%;
+    --task-overdue: 25 95% 53%;
+    --task-pending: 48 96% 53%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(242 47% 58%), hsl(242 47% 68%));
+    --gradient-hero: linear-gradient(135deg, hsl(242 47% 58%) 0%, hsl(260 67% 72%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100% / 0.9), hsl(240 10% 98% / 0.5));
+    
+    /* Shadows & Effects */
+    --shadow-soft: 0 4px 20px hsl(240 10% 15% / 0.08);
+    --shadow-card: 0 8px 32px hsl(240 10% 15% / 0.12);
+    --shadow-task: 0 2px 8px hsl(240 10% 15% / 0.06);
+    --shadow-hover: 0 8px 40px hsl(242 47% 58% / 0.15);
+    
+    /* Glass Effects */
+    --glass-bg: hsl(0 0% 100% / 0.25);
+    --glass-border: hsl(0 0% 100% / 0.18);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 240 10% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 240 10% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --secondary: 240 10% 95%;
+    --secondary-foreground: 240 10% 15%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 240 10% 95%;
+    --muted-foreground: 240 5% 45%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 240 10% 95%;
+    --accent-foreground: 240 10% 15%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 242 47% 58%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +128,130 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-hero);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Glass Effect Cards */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-card);
+  }
+  
+  /* Task Item Styles */
+  .task-item {
+    @apply transition-all duration-300 hover:scale-[1.02];
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-task);
+  }
+  
+  .task-item:hover {
+    box-shadow: var(--shadow-hover);
+  }
+  
+  /* Completed Task Animation */
+  .task-completed {
+    @apply opacity-75;
+    background: linear-gradient(145deg, hsl(142 71% 45% / 0.1), hsl(142 71% 45% / 0.05));
+  }
+  
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.3);
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
+  }
+}
+
+@layer utilities {
+  /* Animation Utilities */
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+  }
+  
+  .animate-bounce-in {
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .animate-check {
+    animation: checkmark 0.3s ease-out;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }
